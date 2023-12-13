@@ -1,7 +1,6 @@
 import { StyleSheet, FlatList, View } from "react-native";
 import { Movie } from "../movie/movies";
 import { Title } from "react-native-paper";
-import { LoadingSkeletonMovie } from "./skeletonMovieList";
 
 interface moviesListPropsInterface {
   moviesList: any;
@@ -14,22 +13,22 @@ export function MoviesList({
 }: moviesListPropsInterface) {
   return (
     <View style={styles.container}>
-          <Title style={styles.title}>{moviesList.title_list}</Title>
-          <FlatList
-            contentContainerStyle={styles.list}
-            data={moviesList.itens}
-            keyExtractor={(item: any) => item.slug}
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-            renderItem={({ item }) => (
-              <Movie
-                movie={{
-                  poster_path: item.poster_path,
-                  title: item.title || item.name,
-                }}
-              />
-            )}
+      <Title style={styles.title}>{moviesList.title_list}</Title>
+      <FlatList
+        contentContainerStyle={styles.list}
+        data={moviesList.itens}
+        keyExtractor={(item: any) => String(item.id)}
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+        renderItem={({ item }) => (
+          <Movie
+            movie={{
+              poster_path: item.poster_path,
+              title: item.title || item.name,
+            }}
           />
+        )}
+      />
     </View>
   );
 }

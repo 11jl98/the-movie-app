@@ -8,9 +8,9 @@ import {
   getHorror,
   getRomance,
   getDocumentry,
-} from "../../../../services/home/home.service";
+} from "../../services/home/home.service";
 import { useNavigation } from "@react-navigation/native";
-import { categoriesList } from "../../../../commons/categories.commons";
+import { categoriesList } from "../../commons/categories.commons";
 
 export default function Home() {
   const [lists, setLists] = useState<any>([]);

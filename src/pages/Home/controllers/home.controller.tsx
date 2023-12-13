@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import { HomeView } from "../view/home.view";
-import { ContextHome } from "../context/home.context";
+import { ContextHome } from "../../../context/home.context";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 
 export function HomeController() {

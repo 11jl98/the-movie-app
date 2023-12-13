@@ -11,11 +11,11 @@ import {
   Platform,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { ContextHome } from "../../context/home.context";
+import { ContextHome } from "../../../../context/home.context";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { DrawerActions, useNavigation } from "@react-navigation/native";
 import { genresList } from "../../../../commons/genres.commons";
-import { DetailSheet } from "../detailSheet/detailSheet";
+import { DetailSheet } from "../../../../components/detailSheet/detailSheet";
 
 const statusBarHeight = StatusBar.currentHeight
   ? StatusBar.currentHeight + 8
@@ -39,10 +39,6 @@ export function MovieRecommended(props: any) {
 
   const handlePresentModalPress = useCallback(() => {
     props.bottomSheetModalRef.current?.present();
-  }, []);
-
-  const handleSheetChanges = useCallback((index: number) => {
-    console.log("handleSheetChanges", index);
   }, []);
 
   useEffect(() => {
@@ -141,7 +137,7 @@ export function MovieRecommended(props: any) {
           </View>
         </LinearGradient>
       </ImageBackground>
-      <DetailSheet bottomSheetModalRef={props.bottomSheetModalRef} movie={recommendedItem} />
+      <DetailSheet bottomSheetModalRef={props.bottomSheetModalRef} movie={recommendedItem} genres={genres} />
     </Animated.View>
   );
 }

@@ -46,7 +46,7 @@ export function HomeView({
       <FlatList
         style={{ marginTop: refreshing ? 30 : 0 }}
         data={moviesList}
-        keyExtractor={(item: any) => item.slug}
+        keyExtractor={(item: any, index: number) => String(index)}
         horizontal={false}
         showsHorizontalScrollIndicator={false}
         ListHeaderComponent={

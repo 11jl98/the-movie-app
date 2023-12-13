@@ -1,4 +1,4 @@
-import { HomeProvider } from "./context/home.context";
+import { HomeProvider } from "../../context/home.context";
 import { HomeController } from "./controllers/home.controller";
 
 const HomePage = () => {
