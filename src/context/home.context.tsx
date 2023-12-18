@@ -11,6 +11,7 @@ const DEFAULT_VALUE = {
   errorImage: true,
   handleErrorImage: () => {},
   refreshing: false,
+  refreshHome: async () => {}
 };
 
 const ContextHome = createContext(DEFAULT_VALUE);
@@ -26,6 +27,7 @@ function HomeProvider({ children }: any) {
     errorImage,
     handleErrorImage,
     refreshing,
+    refreshHome
   } = Home();
   return (
     <ContextHome.Provider
@@ -39,6 +41,7 @@ function HomeProvider({ children }: any) {
         errorImage,
         handleErrorImage,
         refreshing,
+        refreshHome
       }}
     >
       {children}

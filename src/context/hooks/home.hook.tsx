@@ -22,7 +22,6 @@ export default function Home() {
 
   async function getHome() {
     try {
-      setRefreshing(true);
       const responseList = await Promise.all([
         getOriginals(),
         getForYou(),
@@ -70,6 +69,12 @@ export default function Home() {
     seterrorImage(false);
   }
 
+  async function refreshHome() {
+    setRefreshing(true);
+    await getHome();
+    setRefreshing(false);
+  }
+
   return {
     getHome,
     lists,
@@ -80,5 +85,6 @@ export default function Home() {
     errorImage,
     handleErrorImage,
     refreshing,
+    refreshHome
   };
 }

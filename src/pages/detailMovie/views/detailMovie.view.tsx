@@ -1,4 +1,5 @@
-import { View, Text, StyleSheet, Alert, Button } from "react-native";
+import { Suspense } from 'react';
+import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
@@ -14,7 +15,7 @@ export function DetailMovieView({ movie }: MoviePropsInterface) {
       colors={["#05161a", "#0c7078", "#0f9690"]}
       style={styles.linearGradient}
     >
-      <View>
+      <Suspense fallback={<ActivityIndicator/>}>
         <Text style={styles.titleMovie}>{movie?.name}</Text>
         <Text style={styles.overview}>{movie?.overview}</Text>
         <View style={styles.containGenres}>
@@ -40,7 +41,7 @@ export function DetailMovieView({ movie }: MoviePropsInterface) {
             {Math.round(Number(movie?.vote_average))}
           </Text>
         </View>
-      </View>
+      </Suspense>
     </LinearGradient>
   );
 }
