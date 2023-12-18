@@ -1,7 +1,8 @@
 import { useContext, useEffect } from "react";
-import { HomeView } from "../view/home.view";
+import { HomeView } from "../views/home.view";
 import { ContextHome } from "../../../context/home.context";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import { getGenres } from "../../../utils/utils";
 
 export function HomeController() {
   const { getHome, selectedRecommendedItem, lists, loading, refreshing } =

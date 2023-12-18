@@ -1,10 +1,9 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   StyleSheet,
   ImageBackground,
   Text,
   TouchableOpacity,
-  useWindowDimensions,
   StatusBar,
   Animated,
   View,
@@ -14,8 +13,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { ContextHome } from "../../../../context/home.context";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { DrawerActions, useNavigation } from "@react-navigation/native";
-import { genresList } from "../../../../commons/genres.commons";
-import { DetailSheet } from "../../../../components/detailSheet/detailSheet";
+import { getGenres } from "../../../../utils/utils";
 
 const statusBarHeight = StatusBar.currentHeight
   ? StatusBar.currentHeight + 8
@@ -28,21 +26,11 @@ export function MovieRecommended(props: any) {
   const { recommendedItem } = useContext(ContextHome);
   const imgUrl = `${process.env.BASE_URL_IMG}${recommendedItem?.poster_path}`;
 
-  const getGenres = () => {
-    let genresMovie = [];
-    for (let genreId of recommendedItem?.genre_ids) {
-      const findGenre = genresList.find((item) => item.id === Number(genreId));
-      if (findGenre) genresMovie.push(findGenre);
-      setGenres([...genresMovie]);
-    }
-  };
-
-  const handlePresentModalPress = useCallback(() => {
-    props.bottomSheetModalRef.current?.present();
-  }, []);
-
   useEffect(() => {
-    if (recommendedItem) getGenres();
+    if (recommendedItem) {
+      const response = getGenres(recommendedItem);
+      setGenres([...response]);
+    }
   }, [recommendedItem]);
 
   return (
@@ -84,14 +72,14 @@ export function MovieRecommended(props: any) {
           <Text style={styles.title}>{recommendedItem?.name}</Text>
           <View style={styles.containGenres}>
             {genres.map((item: any, index: number) => (
-              <>
-                <Text key={index} style={styles.subTitles}>
+              <View key={index} style={styles.containGenres}>
+                <Text  style={styles.subTitles}>
                   {item?.name}
                 </Text>
                 {genres.length - 1 !== index && (
                   <Text style={styles.subTitles}>•</Text>
                 )}
-              </>
+              </View>
             ))}
           </View>
           <View style={styles.containItems}>
@@ -113,7 +101,13 @@ export function MovieRecommended(props: any) {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.buttonInfos}
-              onPress={handlePresentModalPress}
+              onPress={() =>
+                Navigation.navigate({
+                  name: "Detail",
+                  params: { movieId: recommendedItem.id },
+                  merge: true,
+                } as never)
+              }
             >
               <Text style={styles.subTitles}>Detalhes</Text>
               <Icon name={"information-outline"} color={"#fff"} size={22} />
@@ -137,7 +131,6 @@ export function MovieRecommended(props: any) {
           </View>
         </LinearGradient>
       </ImageBackground>
-      <DetailSheet bottomSheetModalRef={props.bottomSheetModalRef} movie={recommendedItem} genres={genres} />
     </Animated.View>
   );
 }
@@ -186,6 +179,8 @@ const styles = StyleSheet.create({
   },
   containGenres: {
     flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
   },
 
   containItems: {

@@ -46,6 +46,8 @@ function MyDrawer() {
 }
 
 import { createStackNavigator } from "@react-navigation/stack";
+import DetalilMoviePage from "../pages/detailMovie/detailMovie.page";
+import NotFoundPage from "../pages/notFound/notFound.page";
 
 const Stack = createStackNavigator();
 
@@ -55,6 +57,17 @@ export default function MyStack() {
       <Stack.Screen
         name="Home"
         component={MyDrawer}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Detail"
+        component={DetalilMoviePage}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="NotFound"
+        component={NotFoundPage}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

@@ -5,4 +5,9 @@ const getVideos = async (movieId: number) => {
   return response.data;
 };
 
-export { getVideos };
+const getDetail = async (movieId: number) => {
+  const response = await http.get(`/movie/${movieId}?language=pt-BR`);
+  return response.data;
+};
+
+export { getDetail, getVideos };

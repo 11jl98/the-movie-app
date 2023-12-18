@@ -10,7 +10,7 @@ import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { LinearGradient } from "expo-linear-gradient";
 import YoutubePlayer from "react-native-youtube-iframe";
-import { ContextVideo } from "../../context/movieVideo.context";
+import { ContextVideo } from "../../context/movie.context";
 
 export function DetailSheet(props: any) {
   const snapPoints = useMemo(() => ["95%", "95%"], []);
