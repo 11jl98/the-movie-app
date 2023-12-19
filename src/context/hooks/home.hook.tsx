@@ -17,7 +17,6 @@ export default function Home() {
   const [recommendedItem, setRecommendedItem] = useState<any>(undefined);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
-  const [errorImage, seterrorImage] = useState(true);
   const navigation = useNavigation();
 
   async function getHome() {
@@ -34,9 +33,10 @@ export default function Home() {
       ]);
       setLists(formatedToList(responseList));
     } catch (error) {
-      alert(error);
+      console.log(error);
     } finally {
       setRefreshing(false);
+      setLoading(false);
     }
   }
 
@@ -61,14 +61,6 @@ export default function Home() {
     setRecommendedItem(originalsList.itens[randomChose]);
   }
 
-  function handleLoadingImage() {
-    setLoading(false);
-  }
-
-  function handleErrorImage() {
-    seterrorImage(false);
-  }
-
   async function refreshHome() {
     setRefreshing(true);
     await getHome();
@@ -81,10 +73,7 @@ export default function Home() {
     selectedRecommendedItem,
     recommendedItem,
     loading,
-    handleLoadingImage,
-    errorImage,
-    handleErrorImage,
     refreshing,
-    refreshHome
+    refreshHome,
   };
 }

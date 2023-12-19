@@ -6,12 +6,13 @@ const DEFAULT_VALUE = {
   video: {} as any,
   getDetailMovie: async (movieId: number) => {},
   movie: {} as any,
+  loading: true,
 };
 
 const ContextMovie = createContext(DEFAULT_VALUE);
 
 function MovieProvider({ children }: any) {
-  const { getMovieVideo, video, getDetailMovie, movie } = Movie();
+  const { getMovieVideo, video, getDetailMovie, movie, loading } = Movie();
   return (
     <ContextMovie.Provider
       value={{
@@ -19,6 +20,7 @@ function MovieProvider({ children }: any) {
         video,
         getDetailMovie,
         movie,
+        loading,
       }}
     >
       {children}

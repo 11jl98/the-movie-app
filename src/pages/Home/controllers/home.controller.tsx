@@ -1,8 +1,8 @@
-import { Suspense, useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { HomeView } from "../views/home.view";
 import { ContextHome } from "../../../context/home.context";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
-import { ActivityIndicator } from "react-native";
+import { Loading } from "../../../components/loading/loading";
 
 export function HomeController() {
   const {
@@ -23,15 +23,17 @@ export function HomeController() {
   }, [lists]);
 
   return (
-    <Suspense fallback={<ActivityIndicator />}>
-      <BottomSheetModalProvider>
+    <BottomSheetModalProvider>
+      {loading ? (
+        <Loading />
+      ) : (
         <HomeView
           moviesList={lists}
+          refreshHome={refreshHome}
           refreshing={refreshing}
           isLoading={loading}
-          refreshHome={refreshHome}
         />
-      </BottomSheetModalProvider>
-    </Suspense>
+      )}
+    </BottomSheetModalProvider>
   );
 }

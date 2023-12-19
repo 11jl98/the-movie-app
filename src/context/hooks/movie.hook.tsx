@@ -7,6 +7,8 @@ export default function Movie() {
   const [video, setVideo] = useState(undefined);
   const [movie, setMovie] = useState<any>(undefined);
   const [genres, setGenres] = useState<any>([]);
+  const [loading, setLoading] = useState(true);
+
   const navigation = useNavigation();
 
   async function getMovieVideo(movieId: number) {
@@ -29,7 +31,9 @@ export default function Movie() {
           name: "NotFound",
         } as never);
       }
+    } finally {
+      setLoading(false);
     }
   }
-  return { getMovieVideo, video, getDetailMovie, movie };
+  return { getMovieVideo, video, getDetailMovie, movie, loading };
 }

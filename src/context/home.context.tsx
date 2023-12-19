@@ -7,9 +7,6 @@ const DEFAULT_VALUE = {
   selectedRecommendedItem: () => {},
   recommendedItem: {} as any,
   loading: true,
-  handleLoadingImage: () => {},
-  errorImage: true,
-  handleErrorImage: () => {},
   refreshing: false,
   refreshHome: async () => {}
 };
@@ -23,9 +20,6 @@ function HomeProvider({ children }: any) {
     selectedRecommendedItem,
     recommendedItem,
     loading,
-    handleLoadingImage,
-    errorImage,
-    handleErrorImage,
     refreshing,
     refreshHome
   } = Home();
@@ -37,9 +31,6 @@ function HomeProvider({ children }: any) {
         selectedRecommendedItem,
         recommendedItem,
         loading,
-        handleLoadingImage,
-        errorImage,
-        handleErrorImage,
         refreshing,
         refreshHome
       }}

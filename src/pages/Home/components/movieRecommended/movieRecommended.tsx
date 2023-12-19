@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 35,
     color: "#fff",
-    paddingBottom: 20,
+    paddingBottom: 10,
     fontWeight: "bold",
   },
   imageBackground: {
