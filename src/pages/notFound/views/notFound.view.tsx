@@ -4,7 +4,7 @@ export function NotFoundView() {
   return (
     <View style={Styles.container}>
       <Text>
-        DEsculpe, mas não existe informações extras sobre esse filme, tente uma
+        Desculpe, mas não existe informações extras sobre esse filme, tente uma
         nova busca
       </Text>
     </View>

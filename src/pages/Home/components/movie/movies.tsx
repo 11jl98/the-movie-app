@@ -3,8 +3,8 @@ import { Title } from "react-native-paper";
 
 interface moviesListPropsInterface {
   movie: {
-    poster_path: string;
-    title: string;
+    poster_path: string | null;
+    title: string | null;
   };
 }
 

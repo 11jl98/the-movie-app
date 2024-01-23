@@ -1,12 +1,7 @@
-import { MovieProvider } from "../../context/movie.context";
 import { DetailMovieController } from "./controllers/detailMovie.controller";
 
 const DetalilMoviePage = ({ route }: any) => {
-  return (
-    <MovieProvider>
-      <DetailMovieController route={route} />
-    </MovieProvider>
-  );
+  return <DetailMovieController route={route} />;
 };
 
 export default DetalilMoviePage;

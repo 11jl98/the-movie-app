@@ -1,22 +1,19 @@
 import { StyleSheet, FlatList, View } from "react-native";
 import { Movie } from "../movie/movies";
 import { Title } from "react-native-paper";
+import { MovieList } from "../../types";
 
 interface moviesListPropsInterface {
-  moviesList: any;
-  isLoading: boolean;
+  moviesList: MovieList;
 }
 
-export function MoviesList({
-  moviesList,
-  isLoading,
-}: moviesListPropsInterface) {
+export function MoviesList({ moviesList }: moviesListPropsInterface) {
   return (
     <View style={styles.container}>
       <Title style={styles.title}>{moviesList.title_list}</Title>
       <FlatList
         contentContainerStyle={styles.list}
-        data={moviesList.itens}
+        data={moviesList.movies}
         keyExtractor={(item: any) => String(item.id)}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
@@ -24,7 +21,7 @@ export function MoviesList({
           <Movie
             movie={{
               poster_path: item.poster_path,
-              title: item.title || item.name,
+              title: item.title || item.original_title,
             }}
           />
         )}

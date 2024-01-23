@@ -10,33 +10,35 @@ import {
   Platform,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { ContextHome } from "../../../../context/home.context";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { DrawerActions, useNavigation } from "@react-navigation/native";
-import { getGenres } from "../../../../utils/utils";
+import { Recommended } from "../../types";
+import { BottomSheetModalMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
 
 const statusBarHeight = StatusBar.currentHeight
   ? StatusBar.currentHeight + 8
   : 50;
 
-export function MovieRecommended(props: any) {
+interface MovieRecommendedPropsInterface {
+  recommended: Recommended;
+  headerScrollHeight: Animated.AnimatedInterpolation<string | number>;
+  scrollOffsetY: Animated.Value;
+  bottomSheetModalRef: React.RefObject<BottomSheetModalMethods>;
+}
+
+export function MovieRecommended({
+  recommended,
+  headerScrollHeight,
+}: MovieRecommendedPropsInterface) {
   const [genres, setGenres] = useState<any>([]);
 
   const Navigation = useNavigation();
-  const { recommendedItem } = useContext(ContextHome);
-  const imgUrl = `${process.env.BASE_URL_IMG}${recommendedItem?.poster_path}`;
-
-  useEffect(() => {
-    if (recommendedItem) {
-      const response = getGenres(recommendedItem);
-      setGenres([...response]);
-    }
-  }, [recommendedItem]);
+  const imgUrl = `${process.env.BASE_URL_IMG}${recommended?.poster_path}`;
 
   return (
     <Animated.View
       style={{
-        height: props.headerScrollHeight,
+        height: headerScrollHeight,
         overflow: "hidden",
       }}
     >
@@ -69,13 +71,11 @@ export function MovieRecommended(props: any) {
             </TouchableOpacity>
             <Text style={styles.titleHeader}>Bem vindo de volta!</Text>
           </View>
-          <Text style={styles.title}>{recommendedItem?.name}</Text>
+          <Text style={styles.title}>{recommended?.name}</Text>
           <View style={styles.containGenres}>
             {genres.map((item: any, index: number) => (
               <View key={index} style={styles.containGenres}>
-                <Text  style={styles.subTitles}>
-                  {item?.name}
-                </Text>
+                <Text style={styles.subTitles}>{item?.name}</Text>
                 {genres.length - 1 !== index && (
                   <Text style={styles.subTitles}>•</Text>
                 )}
@@ -104,7 +104,7 @@ export function MovieRecommended(props: any) {
               onPress={() =>
                 Navigation.navigate({
                   name: "Detail",
-                  params: { movieId: recommendedItem.id },
+                  params: { movieId: recommended.id },
                   merge: true,
                 } as never)
               }

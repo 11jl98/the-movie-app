@@ -1,37 +1,49 @@
-import { useContext, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { HomeView } from "../views/home.view";
-import { ContextHome } from "../../../context/home.context";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { Loading } from "../../../components/loading/loading";
+import { getMovie } from "../../../services/home/home.service";
+import { MovieType } from "../types";
+import { useNavigation } from "@react-navigation/native";
 
 export function HomeController() {
-  const {
-    getHome,
-    selectedRecommendedItem,
-    lists,
-    loading,
-    refreshing,
-    refreshHome,
-  } = useContext(ContextHome);
+  const [isLoading, setIsLoading] = useState(true);
+  const [listMovies, setListMovies] = useState<MovieType>({} as MovieType);
+  const [refreshing, setRefreshing] = useState(false);
 
-  useEffect(() => {
-    getHome();
-  }, []);
+  const navigation = useNavigation();
 
-  useEffect(() => {
-    selectedRecommendedItem();
-  }, [lists]);
+  const fecthMovies = async () => {
+    try {
+      const response = await getMovie();
+      setListMovies(response);
+    } catch (error) {
+      navigation.navigate("Notfound" as never);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  const refreshHome = async () => {
+    try {
+      setRefreshing(true);
+      const response = await getMovie();
+      setListMovies(response);
+    } catch (error) {
+      navigation.navigate("Notfound" as never);
+    } finally {
+      setRefreshing(false);
+    }
+  };
 
   return (
     <BottomSheetModalProvider>
-      {loading ? (
+      {isLoading ? (
         <Loading />
       ) : (
         <HomeView
-          moviesList={lists}
+          listMovies={listMovies}
           refreshHome={refreshHome}
           refreshing={refreshing}
-          isLoading={loading}
         />
       )}
     </BottomSheetModalProvider>
