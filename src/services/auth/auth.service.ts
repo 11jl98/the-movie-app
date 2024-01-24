@@ -10,7 +10,7 @@ export const singIn = async (email: string, password: string) => {
 };
 
 export const register = async (email: string, password: string) => {
-  await http.post<void>(`/register`, {
+  await http.post<void>(`/auth/register`, {
     email,
     password,
   });

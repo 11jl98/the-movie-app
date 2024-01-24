@@ -32,7 +32,7 @@ const DrawerLayout = ({ icon, label, navigateTo }: drawerPropsInteface) => {
   );
 };
 
-const DrawerItems = (props: any) => {
+const DrawerItems = () => {
   return DrawerList.map((el, i) => {
     return (
       <DrawerLayout

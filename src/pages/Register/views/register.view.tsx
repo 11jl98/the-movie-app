@@ -9,21 +9,21 @@ import {
 } from "react-native";
 import * as Animatable from "react-native-animatable";
 
-interface loginViewPropsInterface {
-  fetchLogin: (email: string, password: string) => Promise<void>;
+interface RegisterViewPropsInterface {
+  fetchRegister: (email: string, password: string) => Promise<void>;
 }
 
-export function LoginView({ fetchLogin }: loginViewPropsInterface) {
+export function RegisterView({ fetchRegister }: RegisterViewPropsInterface) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmedPassword, setConfirmedPassword] = useState("");
 
   const navigation = useNavigation();
-
 
   return (
     <View style={styles.container}>
       <Animatable.View animation="fadeInLeft" style={styles.containerHeader}>
-        <Text style={styles.message}>Bem vindo(a)</Text>
+        <Text style={styles.message}>Cadastre-se aqui!</Text>
       </Animatable.View>
 
       <Animatable.View
@@ -48,20 +48,24 @@ export function LoginView({ fetchLogin }: loginViewPropsInterface) {
           onChangeText={(text) => setPassword(text)}
         />
 
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => fetchLogin(email, password)}
-        >
-          <Text style={styles.buttonText}>Enviar</Text>
-        </TouchableOpacity>
+        <Text style={styles.title}>Confirme sua senha</Text>
+        <TextInput
+          secureTextEntry={true}
+          placeholder="Sua senha"
+          style={styles.input}
+          value={confirmedPassword}
+          onChangeText={(text) => setConfirmedPassword(text)}
+        />
+        {password !== confirmedPassword && confirmedPassword !== "" && (
+          <Text style={styles.titleError}>As senhas não são iguais</Text>
+        )}
 
         <TouchableOpacity
-          style={styles.buttonSingOut}
-          onPress={() => navigation.navigate("Register" as never)}
+          style={styles.button}
+          onPress={() => fetchRegister(email, password)}
+          disabled={password !== confirmedPassword}
         >
-          <Text style={styles.buttonTextSingOut}>
-            Não é cadastrado? Clique aqui{" "}
-          </Text>
+          <Text style={styles.buttonText}>Enviar</Text>
         </TouchableOpacity>
       </Animatable.View>
     </View>
@@ -94,6 +98,10 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     marginTop: 28,
+  },
+  titleError: {
+    fontSize: 13,
+    color: "red",
   },
   input: {
     borderBottomWidth: 1,
