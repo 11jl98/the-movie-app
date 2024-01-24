@@ -81,7 +81,7 @@ function DrawerContent(props: any) {
           )}
           label="Sign Out"
           onPress={() => {
-            navigation.navigate("login" as never);
+            navigation.navigate("Login" as never);
           }}
         />
       </View>

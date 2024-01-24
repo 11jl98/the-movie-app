@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import {
   StyleSheet,
@@ -8,9 +9,16 @@ import {
 } from "react-native";
 import * as Animatable from "react-native-animatable";
 
-export function LoginView({ navigation }: any) {
+interface loginViewPropsInterface {
+  fetchLogin: (email: string, password: string) => Promise<void>;
+}
+
+export function LoginView({ fetchLogin }: loginViewPropsInterface) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigation = useNavigation();
+
 
   return (
     <View style={styles.container}>
@@ -40,13 +48,16 @@ export function LoginView({ navigation }: any) {
           onChangeText={(text) => setPassword(text)}
         />
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => fetchLogin(email, password)}
+        >
           <Text style={styles.buttonText}>Enviar</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.buttonSingOut}
-          onPress={() => navigation.navigate("Register")}
+          onPress={() => navigation.navigate("Welcome" as never)}
         >
           <Text style={styles.buttonTextSingOut}>
             Não é cadastrado? Clique aqui{" "}
@@ -60,7 +71,7 @@ export function LoginView({ navigation }: any) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#009393",
+    backgroundColor: "#05161a",
   },
   containerHeader: {
     marginTop: "14%",
@@ -91,7 +102,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   button: {
-    backgroundColor: "#009393",
+    backgroundColor: "#0f9690",
     borderRadius: 50,
     paddingVertical: 8,
     width: "100%",

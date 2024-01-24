@@ -18,7 +18,8 @@ export function HomeController() {
       const response = await getMovie();
       setListMovies(response);
     } catch (error) {
-      navigation.navigate("Notfound" as never);
+      console.log(error);
+      navigation.navigate("NotFound" as never);
     } finally {
       setIsLoading(false);
     }
@@ -29,11 +30,15 @@ export function HomeController() {
       const response = await getMovie();
       setListMovies(response);
     } catch (error) {
-      navigation.navigate("Notfound" as never);
+      console.log(error);
     } finally {
       setRefreshing(false);
     }
   };
+
+  useEffect(() => {
+    fecthMovies();
+  }, []);
 
   return (
     <BottomSheetModalProvider>

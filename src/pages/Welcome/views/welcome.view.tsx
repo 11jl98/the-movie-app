@@ -2,7 +2,11 @@ import { LinearGradient } from "expo-linear-gradient";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import * as Animatable from "react-native-animatable";
 
-export function WelcomeView() {
+interface welcomeViewPropsInterface {
+  fetchSession: () => Promise<void>;
+}
+
+export function WelcomeView({ fetchSession }: welcomeViewPropsInterface) {
   return (
     <LinearGradient
       start={{ x: 0.0, y: 0.4 }}
@@ -34,7 +38,7 @@ export function WelcomeView() {
         </Text>
         <Text style={styles.text}>Faça o seu Login</Text>
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={()=> fetchSession()}>
           <Text style={styles.textButton}>Acessar</Text>
         </TouchableOpacity>
       </Animatable.View>

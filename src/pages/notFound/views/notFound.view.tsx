@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 export function NotFoundView() {
   return (
     <View style={Styles.container}>
-      <Text>
+      <Text style={{color:'#fff'}}>
         Desculpe, mas não existe informações extras sobre esse filme, tente uma
         nova busca
       </Text>
