@@ -5,7 +5,7 @@ AsyncStorage;
 export const setCookie = async (sessionId: string) => {
   if (sessionId) {
     const expirationDate = new Date();
-    expirationDate.setHours(expirationDate.getMinutes() + 50);
+    expirationDate.setMinutes(expirationDate.getMinutes() + 50);
 
     const cookie = `${
       process.env.NAME_COOKIE
@@ -36,7 +36,6 @@ export const isExpiration = async () => {
 
     const now = new Date();
     const difference: number = expirationDate.getTime() - now.getTime();
-    console.log("difference Aqui: ", difference);
 
     if (difference > 0) {
       return session;

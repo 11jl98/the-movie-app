@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import { useContext, useEffect, useState } from "react";
 import { WelcomeView } from "../views/welcome.view";
-import { isExpiration } from "../../../utils/session.utils";
+import { clearCookies, isExpiration } from "../../../utils/session.utils";
 
 export function WelcomeController() {
   const navigation = useNavigation();

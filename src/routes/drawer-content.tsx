@@ -5,6 +5,7 @@ import { Avatar, Title } from "react-native-paper";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { clearCookies } from "../utils/session.utils";
 
 interface drawerPropsInteface {
   icon: string;
@@ -43,6 +44,7 @@ const DrawerItems = (props: any) => {
     );
   });
 };
+
 function DrawerContent(props: any) {
   const navigation = useNavigation();
 
@@ -81,7 +83,8 @@ function DrawerContent(props: any) {
           )}
           label="Sign Out"
           onPress={() => {
-            navigation.navigate("Login" as never);
+            navigation.navigate("Welcome" as never);
+            clearCookies()
           }}
         />
       </View>

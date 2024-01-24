@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import { DetailMovieView } from "../views/detailMovie.view";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { Loading } from "../../../components/loading/loading";

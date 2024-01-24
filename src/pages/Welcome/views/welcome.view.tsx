@@ -1,5 +1,5 @@
 import { LinearGradient } from "expo-linear-gradient";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import * as Animatable from "react-native-animatable";
 
 interface welcomeViewPropsInterface {
@@ -15,9 +15,8 @@ export function WelcomeView({ fetchSession }: welcomeViewPropsInterface) {
       style={styles.linearGradient}
     >
       <View style={styles.containerLogo}>
-        <Animatable.Image
-          animation="flipInY"
-          source={require("../../../assets/logo-movie.jpg")}
+        <Image
+          source={require("../../../../assets/logo-movie.jpg")}
           style={{
             width: 250,
             height: 250,
@@ -25,7 +24,6 @@ export function WelcomeView({ fetchSession }: welcomeViewPropsInterface) {
             padding: 0,
             borderRadius: 500,
           }}
-          resizeMode="contain"
         />
       </View>
       <Animatable.View

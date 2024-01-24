@@ -5,6 +5,7 @@ import { Loading } from "../../../components/loading/loading";
 import { getMovie } from "../../../services/home/home.service";
 import { MovieType } from "../types";
 import { useNavigation } from "@react-navigation/native";
+import { clearCookies } from "../../../utils/session.utils";
 
 export function HomeController() {
   const [isLoading, setIsLoading] = useState(true);
@@ -17,8 +18,7 @@ export function HomeController() {
     try {
       const response = await getMovie();
       setListMovies(response);
-    } catch (error) {
-      console.log(error);
+    } catch ({ error }: any) {
       navigation.navigate("NotFound" as never);
     } finally {
       setIsLoading(false);
