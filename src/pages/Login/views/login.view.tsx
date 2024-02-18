@@ -8,18 +8,16 @@ import {
   TouchableOpacity,
 } from "react-native";
 import * as Animatable from "react-native-animatable";
+import { loginViewPropsInterface } from "../types";
 
-interface loginViewPropsInterface {
-  fetchLogin: (email: string, password: string) => Promise<void>;
-}
-
-export function LoginView({ fetchLogin }: loginViewPropsInterface) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const navigation = useNavigation();
-
-
+export function LoginView({
+  fetchLogin,
+  handleChangeEmail,
+  handleChangePassword,
+  navigation,
+  password,
+  email,
+}: loginViewPropsInterface) {
   return (
     <View style={styles.container}>
       <Animatable.View animation="fadeInLeft" style={styles.containerHeader}>
@@ -36,7 +34,7 @@ export function LoginView({ fetchLogin }: loginViewPropsInterface) {
           placeholder="Digite seu email..."
           style={styles.input}
           value={email}
-          onChangeText={(text) => setEmail(text)}
+          onChangeText={(text) => handleChangeEmail(text)}
         />
 
         <Text style={styles.title}>Senha</Text>
@@ -45,13 +43,15 @@ export function LoginView({ fetchLogin }: loginViewPropsInterface) {
           placeholder="Sua senha"
           style={styles.input}
           value={password}
-          onChangeText={(text) => setPassword(text)}
+          onChangeText={(text) => handleChangePassword(text)}
         />
-
         <TouchableOpacity
-          style={styles.button}
-          onPress={() => fetchLogin(email, password)}
+          onPress={() => navigation.navigate("Register" as never)}
         >
+          <Text style={styles.buttonTextNewPassord}>Esqueceu sua senha? </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.button} onPress={fetchLogin}>
           <Text style={styles.buttonText}>Enviar</Text>
         </TouchableOpacity>
 
@@ -120,6 +120,9 @@ const styles = StyleSheet.create({
     color: "#a1a1a1",
     textAlign: "center",
     paddingTop: 20,
+  },
+  buttonTextNewPassord: {
+    color: "#a1a1a1",
   },
   buttonSingOut: {
     color: "#a1a1a1",

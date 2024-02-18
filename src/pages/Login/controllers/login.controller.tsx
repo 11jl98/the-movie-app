@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { LoginView } from "../views/login.view";
 import { Loading } from "../../../components/loading/loading";
 import { singIn } from "../../../services/auth/auth.service";
@@ -7,13 +7,16 @@ import { useNavigation } from "@react-navigation/native";
 import { Alert } from "react-native";
 
 export function LoginController() {
-  const [isLoading, seIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const email = useRef("");
+  const password = useRef("");
 
   const navigation = useNavigation();
 
-  const fetchLogin = async (email: string, password: string) => {
+  const fetchLogin = async () => {
     try {
-      const response = await singIn(email, password);
+      setIsLoading(true);
+      const response = await singIn(email.current, password.current);
       await setCookie(response.sessionId);
       return navigation.navigate("Home" as never);
     } catch (error) {
@@ -21,11 +24,34 @@ export function LoginController() {
         "Algo deu errado!",
         "parece que algo deu errado ao fazer o login, tente novamente."
       );
-      console.log(error)
+      console.log(error);
     } finally {
-      seIsLoading(false);
+      setIsLoading(false);
     }
   };
 
-  return <>{isLoading ? <Loading /> : <LoginView fetchLogin={fetchLogin} />}</>;
+  const handleChangeEmail = useCallback((value: string) => {
+    email.current = value;
+  }, []);
+
+  const handleChangePassword = useCallback((value: string) => {
+    password.current = value;
+  }, []);
+
+  return (
+    <>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <LoginView
+          fetchLogin={fetchLogin}
+          navigation={navigation}
+          email={email.current}
+          password={password.current}
+          handleChangeEmail={handleChangeEmail}
+          handleChangePassword={handleChangePassword}
+        />
+      )}
+    </>
+  );
 }

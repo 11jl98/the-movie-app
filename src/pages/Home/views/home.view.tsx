@@ -10,13 +10,7 @@ import { MoviesList } from "../components/moviesList/moviesList";
 import { MovieRecommended } from "../components/movieRecommended/movieRecommended";
 import { LinearGradient } from "expo-linear-gradient";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import { MovieType } from "../types";
-
-interface homePropsInterface {
-  listMovies: MovieType;
-  refreshHome: () => {};
-  refreshing: boolean;
-}
+import { homePropsInterface } from "../types";
 
 const H_MAX_HEIGHT = 500;
 const H_MIN_HEIGHT = Platform.OS === "ios" ? 90 : 75;

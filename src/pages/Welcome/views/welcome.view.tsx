@@ -14,7 +14,7 @@ export function WelcomeView({ fetchSession }: welcomeViewPropsInterface) {
       colors={["#05161a", "#0c7078", "#0f9690"]}
       style={styles.linearGradient}
     >
-      <View style={styles.containerLogo}>
+      <Animatable.View animation="flipInY" style={styles.containerLogo}>
         <Image
           source={require("../../../../assets/logo-movie.jpg")}
           style={{
@@ -25,7 +25,7 @@ export function WelcomeView({ fetchSession }: welcomeViewPropsInterface) {
             borderRadius: 500,
           }}
         />
-      </View>
+      </Animatable.View>
       <Animatable.View
         delay={600}
         animation="fadeInUp"
@@ -36,7 +36,7 @@ export function WelcomeView({ fetchSession }: welcomeViewPropsInterface) {
         </Text>
         <Text style={styles.text}>Faça o seu Login</Text>
 
-        <TouchableOpacity style={styles.button} onPress={()=> fetchSession()}>
+        <TouchableOpacity style={styles.button} onPress={() => fetchSession()}>
           <Text style={styles.textButton}>Acessar</Text>
         </TouchableOpacity>
       </Animatable.View>

@@ -1,4 +1,3 @@
-import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import {
   StyleSheet,
@@ -8,18 +7,17 @@ import {
   TouchableOpacity,
 } from "react-native";
 import * as Animatable from "react-native-animatable";
+import { RegisterViewPropsInterface } from "../types";
 
-interface RegisterViewPropsInterface {
-  fetchRegister: (email: string, password: string) => Promise<void>;
-}
-
-export function RegisterView({ fetchRegister }: RegisterViewPropsInterface) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmedPassword, setConfirmedPassword] = useState("");
-
-  const navigation = useNavigation();
-
+export function RegisterView({
+  fetchRegister,
+  handleChangeConfirmedPassword,
+  handleChangeEmail,
+  handleChangePassword,
+  email,
+  password,
+  confirmedPassword,
+}: RegisterViewPropsInterface) {
   return (
     <View style={styles.container}>
       <Animatable.View animation="fadeInLeft" style={styles.containerHeader}>
@@ -36,7 +34,7 @@ export function RegisterView({ fetchRegister }: RegisterViewPropsInterface) {
           placeholder="Digite seu email..."
           style={styles.input}
           value={email}
-          onChangeText={(text) => setEmail(text)}
+          onChangeText={(text) => handleChangeEmail(text)}
         />
 
         <Text style={styles.title}>Senha</Text>
@@ -45,7 +43,7 @@ export function RegisterView({ fetchRegister }: RegisterViewPropsInterface) {
           placeholder="Sua senha"
           style={styles.input}
           value={password}
-          onChangeText={(text) => setPassword(text)}
+          onChangeText={(text) => handleChangePassword(text)}
         />
 
         <Text style={styles.title}>Confirme sua senha</Text>
@@ -54,7 +52,7 @@ export function RegisterView({ fetchRegister }: RegisterViewPropsInterface) {
           placeholder="Sua senha"
           style={styles.input}
           value={confirmedPassword}
-          onChangeText={(text) => setConfirmedPassword(text)}
+          onChangeText={(text) => handleChangeConfirmedPassword(text)}
         />
         {password !== confirmedPassword && confirmedPassword !== "" && (
           <Text style={styles.titleError}>As senhas não são iguais</Text>
@@ -62,7 +60,7 @@ export function RegisterView({ fetchRegister }: RegisterViewPropsInterface) {
 
         <TouchableOpacity
           style={styles.button}
-          onPress={() => fetchRegister(email, password)}
+          onPress={fetchRegister}
           disabled={password !== confirmedPassword}
         >
           <Text style={styles.buttonText}>Enviar</Text>
